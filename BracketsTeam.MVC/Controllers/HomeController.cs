@@ -15,15 +15,14 @@ namespace BracketsTeam.MVC.Controllers
         {
             using (var ctx = new DBContext_BracketsTeam())
             {
-                /*var playercst = new DBM.Player()
+                /*var res = (from mp in ctx.Match_Player
+                           join m in ctx.Match on mp.Match.IdMatch equals m.IdMatch
+                           select mp); 
+                
+                foreach (var item in res)
                 {
-                    FullName = "Test Full Name",
-                    NickName = "Nickname Test",
-                    BirthDate = new DateTime(1992, 5, 15)
-                };
-
-                var res = ctx.Player.Add(playercst);
-                ctx.SaveChanges();*/
+                    var id = item.IdMatch_Player;
+                }*/
             }
 
             return View();

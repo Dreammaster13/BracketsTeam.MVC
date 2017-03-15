@@ -10,16 +10,13 @@ namespace BracketsTeam.Datos.Models
 {
     public class Player
     {
-        //public Player() { }
+        public Player() { }
 
-        [Key]
         public int IdPlayer { get; set; }
-        [Required]
+
         public string FullName { get; set; }
-        [Required]
         public string NickName { get; set; }
         public DateTime BirthDate { get; set; }
-        [Required]
         public bool IsActive { get; set; }
     }
 }
