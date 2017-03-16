@@ -11,6 +11,11 @@ namespace BracketsTeam.Datos.Models
         public Tournament() { }
 
         public int IdTournament { get; set; }
+        public int IdPrize { get; set; }
+
         public string Name { get; set; }
+        public bool HasEnded { get; set; }
+
+        public virtual Prize Prize { get; set; }
     }
 }

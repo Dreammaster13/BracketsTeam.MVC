@@ -13,6 +13,7 @@ namespace BracketsTeam.Datos.Models
         public int IdTeam_Player { get; set; }
         public int IdTeam { get; set; }
         public int IdPlayer { get; set; }
+        public bool IsPlayerMain { get; set; }
 
         public virtual Team Team { get; set; }
         public virtual Player Player { get; set; }
