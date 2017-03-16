@@ -50,13 +50,65 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBContext_BracketsTeam.cs" />
+    <Compile Include="Migrations\201703141757560_InitialCreate.cs" />
+    <Compile Include="Migrations\201703141757560_InitialCreate.Designer.cs">
+      <DependentUpon>201703141757560_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703151459566_AddedBaseTables.cs" />
+    <Compile Include="Migrations\201703151459566_AddedBaseTables.Designer.cs">
+      <DependentUpon>201703151459566_AddedBaseTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703151506312_UpdatedMatches.cs" />
+    <Compile Include="Migrations\201703151506312_UpdatedMatches.Designer.cs">
+      <DependentUpon>201703151506312_UpdatedMatches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703151715357_UpdatedFKTables.cs" />
+    <Compile Include="Migrations\201703151715357_UpdatedFKTables.Designer.cs">
+      <DependentUpon>201703151715357_UpdatedFKTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703151843593_DeletedBD_ChangedMatches.cs" />
+    <Compile Include="Migrations\201703151843593_DeletedBD_ChangedMatches.Designer.cs">
+      <DependentUpon>201703151843593_DeletedBD_ChangedMatches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703151855291_ChangedSchema.cs" />
+    <Compile Include="Migrations\201703151855291_ChangedSchema.Designer.cs">
+      <DependentUpon>201703151855291_ChangedSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Match.cs" />
+    <Compile Include="Models\Match_Player.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Prize.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Team_Player.cs" />
+    <Compile Include="Models\Team_Tournament.cs" />
+    <Compile Include="Models\Tournament.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703141757560_InitialCreate.resx">
+      <DependentUpon>201703141757560_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703151459566_AddedBaseTables.resx">
+      <DependentUpon>201703151459566_AddedBaseTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703151506312_UpdatedMatches.resx">
+      <DependentUpon>201703151506312_UpdatedMatches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703151715357_UpdatedFKTables.resx">
+      <DependentUpon>201703151715357_UpdatedFKTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703151843593_DeletedBD_ChangedMatches.resx">
+      <DependentUpon>201703151843593_DeletedBD_ChangedMatches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703151855291_ChangedSchema.resx">
+      <DependentUpon>201703151855291_ChangedSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

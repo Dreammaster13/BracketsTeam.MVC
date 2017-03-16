@@ -13,5 +13,6 @@ namespace BracketsTeam.Datos.Models
         public int IdGame { get; set; }
 
         public string Name { get; set; }
+        public bool IsActive { get; set; }
     }
 }
