@@ -7,13 +7,13 @@ namespace BracketsTeam.Datos.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdatedMatches : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedMatches));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703151506312_UpdatedMatches"; }
+            get { return "201703161830194_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -14,7 +14,13 @@ namespace BracketsTeam.Datos.Models
         public int IdTeam { get; set; }
         public int IdTournament { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual Team Team { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual Tournament Tournament { get; set; }
     }
 }
