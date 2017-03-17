@@ -19,10 +19,16 @@ namespace BracketsTeam.MVC
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
+           /*routes.MapRoute(
                 name: "Brackets",
                 url: "Brackets/",
                 defaults: new { controller = "Brackets", action = "Index", id = UrlParameter.Optional }
+            );*/
+
+            routes.MapRoute(
+                name: "Team",
+                url: "Team/{action}/{id}",
+                defaults: new { controller = "Team", action = "{action}", id = UrlParameter.Optional }
             );
         }
     }

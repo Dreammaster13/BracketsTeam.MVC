@@ -13,7 +13,7 @@ namespace BracketsTeam.Datos.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703161830194_Initial"; }
+            get { return "201703162320359_Initial"; }
         }
         
         string IMigrationMetadata.Source

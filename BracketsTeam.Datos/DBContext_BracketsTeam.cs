@@ -110,8 +110,10 @@ namespace BracketsTeam.Datos
             #region Tournament
             modelBuilder.Entity<Tournament>().HasKey(x => x.IdTournament).Property(x=> x.IdTournament).HasColumnOrder(1);
             modelBuilder.Entity<Tournament>().Property(x => x.Name).IsRequired().HasMaxLength(256).HasColumnOrder(2);
-            modelBuilder.Entity<Tournament>().Property(x => x.HasStarted).IsRequired().HasColumnOrder(3);
-            modelBuilder.Entity<Tournament>().Property(x => x.HasEnded).IsRequired().HasColumnOrder(4);
+            modelBuilder.Entity<Tournament>().Property(x => x.MaxPlayers).IsRequired().HasColumnOrder(3);
+            modelBuilder.Entity<Tournament>().Property(x => x.MaxPlayersTeam).IsRequired().HasColumnOrder(4);
+            modelBuilder.Entity<Tournament>().Property(x => x.HasStarted).IsRequired().HasColumnOrder(5);
+            modelBuilder.Entity<Tournament>().Property(x => x.HasEnded).IsRequired().HasColumnOrder(6);
             #endregion
 
             #region Tournament_Prize

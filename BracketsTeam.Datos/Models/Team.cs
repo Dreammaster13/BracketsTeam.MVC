@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BracketsTeam.Datos.Models
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Team
     {
@@ -19,20 +19,20 @@ namespace BracketsTeam.Datos.Models
         public int IdGame { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string NameShort { get; set; }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool IsActive { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public virtual Game Game { get; set; }
     }

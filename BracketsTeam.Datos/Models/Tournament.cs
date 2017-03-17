@@ -20,6 +20,14 @@ namespace BracketsTeam.Datos.Models
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// Maximum amount of players per tournament
+        /// </summary>
+        public int MaxPlayers { get; set; }
+        /// <summary>
+        /// Maximum amount of players per team
+        /// </summary>
+        public int MaxPlayersTeam { get; set; }
+        /// <summary>
         /// Has the tournament started?
         /// </summary>
         public bool HasStarted { get; set; }

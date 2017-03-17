@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Team - Create";
+}
+
+<br />
+<div class="form-horizontal">
+    <div class="form-group">
+        <h2>Team <small>Create</small></h2>
+    </div>
+    <div class="form-group">
+        <label for="teamName" class="control-label col-sm-2">Name</label>
+        <div class="col-sm-2">
+            <input type="text" id="teamName" placeholder="Name (64)" class="form-control"
+                   data-toggle="tooltip" data-placement="top" title="Team's Name"
+                   maxlength="64" draggable="false" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="teamShortName" class="control-label col-sm-2">Short Name</label>
+        <div class="col-sm-2">
+            <input type="text" id="teamShortName" placeholder="Short Name (4)" class="form-control"
+                   data-toggle="tooltip" data-placement="top" title="Team's Short Name. <br/> 4 characters Max."
+                   maxlength="4" draggable="false" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+            <div class="checkbox">
+                <label data-toggle="tooltip" data-placement="top" title="Is the team active?">
+                    <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> Is Active?
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-2">
+            <button id="btnNewTeam" class="btn btn-primary"
+                    data-toggle="tooltip" data-placement="top" title="Create New Team">
+                Create
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnNewTeam").click(function () {
+            var tName = document.getElementById("teamName").value;
+            var tShortName = document.getElementById("teamShortName").value;
+            var tIsActive = document.getElementById("teamIsActive").checked;
+
+            $.ajax({
+                method: "POST",
+                url: "./Create",
+                dataType: "text",
+                data: { name: tName, shortName: tShortName, isActive: tIsActive }
+
+            }).done(function (response) {
+                //show success message
+                alert(response);
+            });
+        });
+    });
+</script>
