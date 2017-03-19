@@ -1,20 +1,20 @@
-namespace BracketsTeam.Datos.Migrations
+namespace BracketsTeam.Entities.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BracketsTeam.Datos.DBContext_BracketsTeam>
+    internal sealed class Configuration : DbMigrationsConfiguration<BracketsTeam.Entities.DBContext_BracketsTeam>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
             //AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "BracketsTeam.Datos.DBContext_BracketsTeam";
+            ContextKey = "BracketsTeam.Entities.DBContext_BracketsTeam";
         }
 
-        protected override void Seed(BracketsTeam.Datos.DBContext_BracketsTeam context)
+        protected override void Seed(BracketsTeam.Entities.DBContext_BracketsTeam context)
         {
             //  This method will be called after migrating to the latest version.
 

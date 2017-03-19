@@ -5,7 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BracketsTeam.MVC", "BracketsTeam.MVC\BracketsTeam.MVC.csproj", "{EABAF722-DC5B-4AFF-997A-D60B737A1BD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BracketsTeam.Datos", "BracketsTeam.Datos\BracketsTeam.Datos.csproj", "{4CE4E436-E32A-4B62-87E6-8D62EA35CE73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BracketsTeam.Entities", "BracketsTeam.Datos\BracketsTeam.Entities.csproj", "{4CE4E436-E32A-4B62-87E6-8D62EA35CE73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BracketsTeam.Logic", "BracketsTeam.Logic\BracketsTeam.Logic.csproj", "{5C634A83-B306-4DF0-A4C7-E23A06DE9C44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{4CE4E436-E32A-4B62-87E6-8D62EA35CE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE4E436-E32A-4B62-87E6-8D62EA35CE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE4E436-E32A-4B62-87E6-8D62EA35CE73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C634A83-B306-4DF0-A4C7-E23A06DE9C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C634A83-B306-4DF0-A4C7-E23A06DE9C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C634A83-B306-4DF0-A4C7-E23A06DE9C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C634A83-B306-4DF0-A4C7-E23A06DE9C44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

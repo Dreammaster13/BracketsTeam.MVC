@@ -4,11 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BracketsTeam.Datos.Models;
+using BracketsTeam.Entities.Models;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BracketsTeam.Datos
+namespace BracketsTeam.Entities
 {
     public class DBContext_BracketsTeam : DbContext
     {

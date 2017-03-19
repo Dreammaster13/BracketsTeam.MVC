@@ -1,33 +1,41 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Team - Create";
+    var gameList = ViewBag.gameList as Dictionary<int, string>;
 }
 
 <br />
 <div class="form-horizontal">
     <div class="form-group">
-        <h2>Team <small>Create</small></h2>
+        <div class="col-sm-offset-2">
+            <h2>Team <small>Create</small></h2>
+        </div>
     </div>
     <div class="form-group">
-        <label for="teamName" class="control-label col-sm-2">Name</label>
-        <div class="col-sm-2">
-            <input type="text" id="teamName" placeholder="Name (64)" class="form-control"
-                   data-toggle="tooltip" data-placement="top" title="Team's Name"
-                   maxlength="64" draggable="false" />
+        <label for="teamName" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-5">
+            <input type="text" id="teamName" placeholder="Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name)"
+                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" draggable="false" />
         </div>
     </div>
     <div class="form-group">
         <label for="teamShortName" class="control-label col-sm-2">Short Name</label>
         <div class="col-sm-2">
-            <input type="text" id="teamShortName" placeholder="Short Name (4)" class="form-control"
-                   data-toggle="tooltip" data-placement="top" title="Team's Short Name. <br/> 4 characters Max."
-                   maxlength="4" draggable="false" />
+            <input type="text" id="teamShortName" placeholder="Short Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort)"
+                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" draggable="false" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="gameList" class="control-label col-sm-2">Game</label>
+        <div class="col-sm-3">
+            <select class="form-control" id="gameList">
+                @foreach (var item in gameList) {<option value="@item.Key">@item.Value</option>}
+            </select>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-2">
             <div class="checkbox">
-                <label data-toggle="tooltip" data-placement="top" title="Is the team active?">
+                <label>
                     <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> Is Active?
                 </label>
             </div>
@@ -35,9 +43,8 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-2">
-            <button id="btnNewTeam" class="btn btn-primary"
-                    data-toggle="tooltip" data-placement="top" title="Create New Team">
-                Create
+            <button id="btnNewTeam" class="btn btn-primary">
+                <i id="iLoading" class="fa fa-refresh"></i> Create
             </button>
         </div>
     </div>
@@ -46,19 +53,46 @@
 <script type="text/javascript">
     $(function () {
         $("#btnNewTeam").click(function () {
+            $("#iLoading").addClass("fa-spin");
+            $(this).prop("disabled", true);
+
             var tName = document.getElementById("teamName").value;
             var tShortName = document.getElementById("teamShortName").value;
             var tIsActive = document.getElementById("teamIsActive").checked;
+            var tIdGame = document.getElementById("gameList").value;
+            var classUsed = "warning";
+            var volver = false;
+            var errorMessage = "";
+            
+            if (tName.length <= 0) { errorMessage += "@BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyName" + "<br />"; volver = true; }
+            if (tShortName <= 0) { errorMessage += "@BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyShortName"; volver = true; }
+
+            if (volver) {
+                ShowAlertMessage("Equipo: ", errorMessage, 5, true, "danger");
+                $("#iLoading").removeClass("fa-spin");
+                $("#btnNewTeam").prop("disabled", false);
+                return;
+            }
 
             $.ajax({
                 method: "POST",
                 url: "./Create",
-                dataType: "text",
-                data: { name: tName, shortName: tShortName, isActive: tIsActive }
+                dataType: "json",
+                data: {
+                    name: tName,
+                    shortName: tShortName,
+                    idGame: tIdGame,
+                    isActive: tIsActive
+                }
 
             }).done(function (response) {
-                //show success message
-                alert(response);
+                classUsed = "success";
+            }).fail(function (response) {
+                classUsed = "danger";
+            }).always(function (response) {
+                $("#iLoading").removeClass("fa-spin");
+                $("#btnNewTeam").prop("disabled", false);
+                ShowAlertMessage("Equipo:", response.msg, 5, true, classUsed);
             });
         });
     });

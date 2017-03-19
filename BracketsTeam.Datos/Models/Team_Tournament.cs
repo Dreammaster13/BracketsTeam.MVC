@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BracketsTeam.Datos.Models
+namespace BracketsTeam.Entities.Models
 {
     public class Team_Tournament
     {

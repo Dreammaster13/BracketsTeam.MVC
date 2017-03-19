@@ -1,4 +1,4 @@
-namespace BracketsTeam.Datos.Migrations
+namespace BracketsTeam.Entities.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

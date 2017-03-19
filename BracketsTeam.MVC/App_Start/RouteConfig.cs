@@ -13,23 +13,27 @@ namespace BracketsTeam.MVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
+            /*routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-           /*routes.MapRoute(
+           routes.MapRoute(
                 name: "Brackets",
                 url: "Brackets/",
                 defaults: new { controller = "Brackets", action = "Index", id = UrlParameter.Optional }
             );*/
 
             routes.MapRoute(
+                name: "Admin",
+                url: "Admin/{action}",
+                defaults: new { controller = "Admin", action = "Index" });
+
+            routes.MapRoute(
                 name: "Team",
-                url: "Team/{action}/{id}",
-                defaults: new { controller = "Team", action = "{action}", id = UrlParameter.Optional }
-            );
+                url: "Admin/Team/{action}/{id}",
+                defaults: new { controller = "Team", action = "{action}", id = UrlParameter.Optional });
         }
     }
 }
