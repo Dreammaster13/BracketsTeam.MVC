@@ -28,7 +28,7 @@ namespace BracketsTeam.MVC.Controllers
             var genRes = Team.Insert(name, shortName, idGame, isActive);
             string msg = "Placeholder";
             if (genRes.Registries.Count > 0) msg = genRes.Registries.First().IdRegistry > 0 ? Utilities.Messages.Team.AddTeam_Success : Utilities.Messages.Team.AddTeam_Error_General;
-            
+
             return Json(new {msg});
         }
     }

@@ -15,9 +15,8 @@ namespace BracketsTeam.Logic
             GenericResponse gr = new GenericResponse();
 
             string modName = tName.Left(Utilities.LengthDefinition.Team.Name);
-            string modNameShort = tName.Left(Utilities.LengthDefinition.Team.NameShort);
+            string modNameShort = tName.Left(Utilities.LengthDefinition.Team.NameShort).ToUpper();
 
-            
             using (var ctx = new DBContext_BracketsTeam())
             {
                 var newTeam = new MOD.Team()

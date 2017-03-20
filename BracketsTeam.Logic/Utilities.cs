@@ -8,31 +8,31 @@ using BracketsTeam.Entities;
 namespace BracketsTeam.Logic
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class Utilities
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static class LengthDefinition
         {
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Game
             {
-                //public static int Name 
-                //{ get 
-                //{ 
-                //return Entities.Extensions.GetMaxLength(new Entities.DBContext_BracketsTeam(), "Game", "Name").GetValueOrDefault(0); 
-                //} 
+                //public static int Name
+                //{ get
+                //{
+                //return Entities.Extensions.GetMaxLength(new Entities.DBContext_BracketsTeam(), "Game", "Name").GetValueOrDefault(0);
+                //}
                 //}
                 public static int Name = 128;
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Match
             {
@@ -40,7 +40,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Match_Player
             {
@@ -48,7 +48,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Player
             {
@@ -61,7 +61,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Prize
             {
@@ -70,7 +70,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Team
             {
@@ -79,7 +79,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Team_Player
             {
@@ -87,7 +87,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Team_Tournament
             {
@@ -95,7 +95,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Tournament
             {
@@ -103,7 +103,7 @@ namespace BracketsTeam.Logic
             }
 
             /// <summary>
-            /// 
+            ///
             /// </summary>
             public static class Tournament_Prize
             {
@@ -113,15 +113,30 @@ namespace BracketsTeam.Logic
 
         public static class Messages
         {
+            /// <summary>
+            ///
+            /// </summary>
+            /// <returns></returns>
+            public static string AddMessageToHTML(string message)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<li>");
+                sb.Append(message);
+                sb.Append("</li>");
+
+                return sb.ToString();
+            }
+
             public static class Team
             {
-                public static string AddTeam_Success = "<strong>Equipo</strong> se agregó correctamente.";
+                public static string AddTeam_Success = AddMessageToHTML("<strong>Equipo</strong> se agregó correctamente.");
 
-                public static string AddTeam_Error_General = "Ocurrió un error al agregar el <strong>Equipo</strong>.";
-                public static string AddTeam_Error_EmptyName = "Debe ingresar un <strong>Nombre</strong> al <strong>Equipo</strong>.";
-                public static string AddTeam_Error_EmptyShortName = "Debe ingresar un <strong>Nombre Corto</strong> al <strong>Equipo</strong>.";
+                public static string AddTeam_Error_General = AddMessageToHTML("Ocurrió un error al agregar el <strong>Equipo</strong>.");
+                public static string AddTeam_Error_EmptyName = AddMessageToHTML("Debe ingresar un <strong>Nombre</strong> al <strong>Equipo</strong>.");
+                public static string AddTeam_Error_EmptyShortName = AddMessageToHTML("Debe ingresar un <strong>Nombre Corto</strong> al <strong>Equipo</strong>.");
+                public static string AddTeam_Error_EmptyGame = AddMessageToHTML("Debe seleccionar un <strong>Juego</strong> para agregar al <strong>Equipo</strong>.");
 
-                public static string AddTeam_Warning_Inactive = "El <strong>Equipo</strong> no está <strong>activo</strong>.";
+                public static string AddTeam_Warning_Inactive = AddMessageToHTML("El <strong>Equipo</strong> no está <strong>activo</strong>.");
             }
         }
     }

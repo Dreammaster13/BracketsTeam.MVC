@@ -12,23 +12,26 @@
     </div>
     <div class="form-group">
         <label for="teamName" class="col-sm-2 control-label">Name</label>
-        <div class="col-sm-5">
+        <div class="col-md-10 col-sm-10 col-lg-10">
             <input type="text" id="teamName" placeholder="Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name)"
-                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" draggable="false" />
+                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" />
         </div>
     </div>
     <div class="form-group">
         <label for="teamShortName" class="control-label col-sm-2">Short Name</label>
         <div class="col-sm-2">
             <input type="text" id="teamShortName" placeholder="Short Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort)"
-                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" draggable="false" />
+                   class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" />
         </div>
     </div>
     <div class="form-group">
         <label for="gameList" class="control-label col-sm-2">Game</label>
         <div class="col-sm-3">
             <select class="form-control" id="gameList">
-                @foreach (var item in gameList) {<option value="@item.Key">@item.Value</option>}
+                @foreach (var item in gameList)
+                {
+                    <option value="@item.Key">@item.Value</option>
+                }
             </select>
         </div>
     </div>
@@ -63,12 +66,13 @@
             var classUsed = "warning";
             var volver = false;
             var errorMessage = "";
-            
-            if (tName.length <= 0) { errorMessage += "@BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyName" + "<br />"; volver = true; }
-            if (tShortName <= 0) { errorMessage += "@BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyShortName"; volver = true; }
+
+            if (tName.length <= 0) { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyName)"; volver = true; }
+            if (tShortName <= 0) { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyShortName)"; volver = true; }
+            if (tIdGame === "") { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyGame)"; volver = true; }
 
             if (volver) {
-                ShowAlertMessage("Equipo: ", errorMessage, 5, true, "danger");
+                ShowAlertMessage("Equipo: ", errorMessage, -1, true, "danger");
                 $("#iLoading").removeClass("fa-spin");
                 $("#btnNewTeam").prop("disabled", false);
                 return;
@@ -86,6 +90,9 @@
                 }
 
             }).done(function (response) {
+                document.getElementById("teamName").value = "";
+                document.getElementById("teamShortName").value = "";
+                var tIsActive = document.getElementById("teamIsActive").checked = true;
                 classUsed = "success";
             }).fail(function (response) {
                 classUsed = "danger";

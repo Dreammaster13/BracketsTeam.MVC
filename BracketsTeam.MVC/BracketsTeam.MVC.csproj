@@ -258,9 +258,9 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BracketsTeam.Entities\BracketsTeam.Entities.csproj">
-      <Project>{4ce4e436-e32a-4b62-87e6-8d62ea35ce73}</Project>
-      <Name>BracketsTeam.Entities</Name>
+    <ProjectReference Include="..\BracketsTeam.Logic\BracketsTeam.Logic.csproj">
+      <Project>{5c634a83-b306-4df0-a4c7-e23a06de9c44}</Project>
+      <Name>BracketsTeam.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -15,8 +15,8 @@ function ShowAlertMessage(title, content, duration, useHTML, cssClass) {
 
     $("#msg-title").text(title);
 
-    if (useHTML) $("#msg-content").html(content);
-    else $("#msg-content").text(content);
+    if (useHTML) { $("#msg-content").html(content); }
+    else { $("#msg-content").text(content); }
 
     $("#alertMessage").removeClass().addClass("alert alert-" + cssClass).slideDown(600);
 

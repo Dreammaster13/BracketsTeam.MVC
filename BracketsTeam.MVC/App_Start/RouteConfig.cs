@@ -26,6 +26,11 @@ namespace BracketsTeam.MVC
             );*/
 
             routes.MapRoute(
+                name: "Home",
+                url: "",
+                defaults: new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 name: "Admin",
                 url: "Admin/{action}",
                 defaults: new { controller = "Admin", action = "Index" });
