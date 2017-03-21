@@ -18,8 +18,12 @@ namespace BracketsTeam.Entities.Models
         public decimal ApproximateValue { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual Tournament Tournament { get; set; }
+        /// <summary>
         ///
         /// </summary>
-        public Prize Prize { get; set; }
+        public virtual Prize Prize { get; set; }
     }
 }

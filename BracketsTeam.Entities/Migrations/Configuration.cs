@@ -16,18 +16,11 @@ namespace BracketsTeam.Entities.Migrations
 
         protected override void Seed(BracketsTeam.Entities.DBContext_BracketsTeam context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Game.AddOrUpdate(
+                new Models.Game() { Name = "Dota2", Alias = "Dota2", IsActive = true },
+                new Models.Game() { Name = "Counter Strike: Global Offensive", Alias = "CSGO", IsActive = true },
+                new Models.Game() { Name = "League of Legends", Alias = "LoL", IsActive = true }
+            );
         }
     }
 }

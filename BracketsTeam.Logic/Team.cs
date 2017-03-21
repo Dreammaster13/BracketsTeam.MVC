@@ -10,7 +10,7 @@ namespace BracketsTeam.Logic
 {
     public static class Team
     {
-        public static GenericResponse Insert(string tName, string tNameShort, int tIdGame, bool tIsActive)
+        public static GenericResponse Insert(string tName, string tNameShort, int[] tIdsGame, bool tIsActive)
         {
             GenericResponse gr = new GenericResponse();
 
@@ -21,18 +21,29 @@ namespace BracketsTeam.Logic
             {
                 var newTeam = new MOD.Team()
                 {
-                    IdGame = tIdGame,
                     Name = modName,
                     NameShort = modNameShort,
                     IsActive = tIsActive
                 };
 
                 ctx.Team.Add(newTeam);
+                int saveTeam = ctx.SaveChanges();
 
-                int save = ctx.SaveChanges();
-
-                var gt = new GenericTable((save.Equals(1) ? newTeam.IdTeam : 0), "Team");
+                var gt = new GenericTable(newTeam.IdTeam, "Team");
                 gr.Registries.Add(gt);
+
+                /* foreach (var item in tIdsGame)
+                 {
+                     var newTeamGame = new MOD.Team_Game()
+                     {
+                         IdGame = item,
+                         IdTeam = newTeam.IdTeam
+                     };
+
+                     ctx.Team_Game.Add(newTeamGame);
+                 }
+
+                 int saveTeam_Games = ctx.SaveChanges();*/
             }
 
             return gr;

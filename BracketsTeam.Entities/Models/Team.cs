@@ -16,7 +16,6 @@ namespace BracketsTeam.Entities.Models
         public Team() { }
 
         public int IdTeam { get; set; }
-        public int IdGame { get; set; }
 
         /// <summary>
         ///
@@ -30,10 +29,5 @@ namespace BracketsTeam.Entities.Models
         ///
         /// </summary>
         public bool IsActive { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public virtual Game Game { get; set; }
     }
 }

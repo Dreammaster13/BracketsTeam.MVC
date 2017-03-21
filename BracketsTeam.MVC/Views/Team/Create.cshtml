@@ -2,32 +2,31 @@
     ViewBag.Title = "Team - Create";
     var gameList = ViewBag.gameList as Dictionary<int, string>;
 }
-
 <br />
 <div class="form-horizontal">
     <div class="form-group">
         <div class="col-sm-offset-2">
-            <h2>Team <small>Create</small></h2>
+            <h2>Equipo <small>Registrar</small></h2>
         </div>
     </div>
     <div class="form-group">
-        <label for="teamName" class="col-sm-2 control-label">Name</label>
-        <div class="col-md-10 col-sm-10 col-lg-10">
-            <input type="text" id="teamName" placeholder="Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name)"
+        <label for="teamName" class="col-sm-2 control-label">Nombre</label>
+        <div class="col-sm-6">
+            <input type="text" id="teamName" placeholder="Nombre (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name)"
                    class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" />
         </div>
     </div>
     <div class="form-group">
-        <label for="teamShortName" class="control-label col-sm-2">Short Name</label>
+        <label for="teamShortName" class="control-label col-sm-2">Nombre Corto</label>
         <div class="col-sm-2">
-            <input type="text" id="teamShortName" placeholder="Short Name (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort)"
+            <input type="text" id="teamShortName" placeholder="Nombre Corto (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort)"
                    class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" />
         </div>
     </div>
     <div class="form-group">
-        <label for="gameList" class="control-label col-sm-2">Game</label>
-        <div class="col-sm-3">
-            <select class="form-control" id="gameList">
+        <label for="gameList" class="control-label col-sm-2">Juego</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="gameList" multiple="multiple">
                 @foreach (var item in gameList)
                 {
                     <option value="@item.Key">@item.Value</option>
@@ -39,7 +38,7 @@
         <div class="col-sm-offset-2 col-sm-2">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> Is Active?
+                    <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> ¿Equipo está activo?
                 </label>
             </div>
         </div>
@@ -47,14 +46,28 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-2">
             <button id="btnNewTeam" class="btn btn-primary">
-                <i id="iLoading" class="fa fa-refresh"></i> Create
+                <i id="iLoading" class="fa fa-refresh"></i> Registrar
             </button>
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
     $(function () {
+        $("#gameList").select2({
+            placeholder: "Buscar Juego ...",
+            allowClear: true,
+            maximumInputLength: 20,
+            minimumInputLength: 2,
+            language: {
+                inputTooShort: function () {
+                    return "Debe ingresar 2 o más caracteres ...";
+                },
+                noResults: function () {
+                    return "No se encontraron resultados.";
+                }
+            }
+        });
+
         $("#btnNewTeam").click(function () {
             $("#iLoading").addClass("fa-spin");
             $(this).prop("disabled", true);
@@ -62,19 +75,20 @@
             var tName = document.getElementById("teamName").value;
             var tShortName = document.getElementById("teamShortName").value;
             var tIsActive = document.getElementById("teamIsActive").checked;
-            var tIdGame = document.getElementById("gameList").value;
+            var tIdGame = $("#gameList").select2("val");
             var classUsed = "warning";
             var volver = false;
             var errorMessage = "";
 
             if (tName.length <= 0) { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyName)"; volver = true; }
             if (tShortName <= 0) { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyShortName)"; volver = true; }
-            if (tIdGame === "") { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyGame)"; volver = true; }
+            if (tIdGame.length == 0) { errorMessage += "@HttpUtility.JavaScriptStringEncode(BracketsTeam.Logic.Utilities.Messages.Team.AddTeam_Error_EmptyGame)"; volver = true; }
 
             if (volver) {
-                ShowAlertMessage("Equipo: ", errorMessage, -1, true, "danger");
+                ShowAlertMessage("Equipo: ", errorMessage, 10, true, "danger");
                 $("#iLoading").removeClass("fa-spin");
                 $("#btnNewTeam").prop("disabled", false);
+                $("#teamName").focus();
                 return;
             }
 
@@ -85,7 +99,7 @@
                 data: {
                     name: tName,
                     shortName: tShortName,
-                    idGame: tIdGame,
+                    idsGame: tIdGame,
                     isActive: tIsActive
                 }
 
@@ -99,6 +113,7 @@
             }).always(function (response) {
                 $("#iLoading").removeClass("fa-spin");
                 $("#btnNewTeam").prop("disabled", false);
+                $("#teamName").focus();
                 ShowAlertMessage("Equipo:", response.msg, 5, true, classUsed);
             });
         });

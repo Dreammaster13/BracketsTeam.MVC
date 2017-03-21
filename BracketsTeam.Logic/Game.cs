@@ -17,7 +17,7 @@ namespace BracketsTeam.Logic
             using (var ctx = new DBContext_BracketsTeam())
             {
                 var gameList = ctx.Game.Where(x => x.IsActive).ToList();
-                foreach (var item in gameList) dict.Add(item.IdGame, item.Name);
+                foreach (var item in gameList) dict.Add(item.IdGame, item.Name + " (" + item.Alias + ")");
             }
 
             return dict;

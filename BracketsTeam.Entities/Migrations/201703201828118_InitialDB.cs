@@ -3,7 +3,7 @@ namespace BracketsTeam.Entities.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class InitialDB : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ namespace BracketsTeam.Entities.Migrations
                     {
                         IdGame = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 128),
+                        Alias = c.String(nullable: false, maxLength: 16),
                         IsActive = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.IdGame);
@@ -42,14 +43,11 @@ namespace BracketsTeam.Entities.Migrations
                 c => new
                     {
                         IdTeam = c.Int(nullable: false, identity: true),
-                        IdGame = c.Int(nullable: false),
                         Name = c.String(nullable: false, maxLength: 64),
                         NameShort = c.String(nullable: false, maxLength: 4),
                         IsActive = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.IdTeam)
-                .ForeignKey("brk.Games", t => t.IdGame, cascadeDelete: true)
-                .Index(t => t.IdGame);
+                .PrimaryKey(t => t.IdTeam);
             
             CreateTable(
                 "brk.Match_Player",
@@ -115,6 +113,20 @@ namespace BracketsTeam.Entities.Migrations
                 .PrimaryKey(t => t.IdTournament);
             
             CreateTable(
+                "brk.Player_Game",
+                c => new
+                    {
+                        IdPlayer_Game = c.Int(nullable: false, identity: true),
+                        IdPlayer = c.Int(nullable: false),
+                        IdGame = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.IdPlayer_Game)
+                .ForeignKey("brk.Games", t => t.IdGame, cascadeDelete: true)
+                .ForeignKey("brk.Players", t => t.IdPlayer, cascadeDelete: true)
+                .Index(t => t.IdPlayer)
+                .Index(t => t.IdGame);
+            
+            CreateTable(
                 "brk.Prizes",
                 c => new
                     {
@@ -124,6 +136,20 @@ namespace BracketsTeam.Entities.Migrations
                         Value = c.Decimal(nullable: false, precision: 10, scale: 3),
                     })
                 .PrimaryKey(t => t.IdPrize);
+            
+            CreateTable(
+                "brk.Team_Game",
+                c => new
+                    {
+                        IdTeam_Game = c.Int(nullable: false, identity: true),
+                        IdTeam = c.Int(nullable: false),
+                        IdGame = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.IdTeam_Game)
+                .ForeignKey("brk.Games", t => t.IdGame, cascadeDelete: true)
+                .ForeignKey("brk.Teams", t => t.IdTeam, cascadeDelete: true)
+                .Index(t => t.IdTeam)
+                .Index(t => t.IdGame);
             
             CreateTable(
                 "brk.Team_Player",
@@ -152,15 +178,22 @@ namespace BracketsTeam.Entities.Migrations
                     })
                 .PrimaryKey(t => t.IdTournament_Prize)
                 .ForeignKey("brk.Prizes", t => t.IdPrize, cascadeDelete: true)
+                .ForeignKey("brk.Tournaments", t => t.IdTournament, cascadeDelete: true)
+                .Index(t => t.IdTournament)
                 .Index(t => t.IdPrize);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("brk.Tournament_Prize", "IdTournament", "brk.Tournaments");
             DropForeignKey("brk.Tournament_Prize", "IdPrize", "brk.Prizes");
             DropForeignKey("brk.Team_Player", "IdTeam", "brk.Teams");
             DropForeignKey("brk.Team_Player", "IdPlayer", "brk.Players");
+            DropForeignKey("brk.Team_Game", "IdTeam", "brk.Teams");
+            DropForeignKey("brk.Team_Game", "IdGame", "brk.Games");
+            DropForeignKey("brk.Player_Game", "IdPlayer", "brk.Players");
+            DropForeignKey("brk.Player_Game", "IdGame", "brk.Games");
             DropForeignKey("brk.Match_Player", "IdTeam_Tournament", "brk.Team_Tournament");
             DropForeignKey("brk.Team_Tournament", "IdTournament", "brk.Tournaments");
             DropForeignKey("brk.Team_Tournament", "IdTeam", "brk.Teams");
@@ -169,10 +202,14 @@ namespace BracketsTeam.Entities.Migrations
             DropForeignKey("brk.Matches", "IdTeamWinner", "brk.Teams");
             DropForeignKey("brk.Matches", "IdTeamTwo", "brk.Teams");
             DropForeignKey("brk.Matches", "IdTeamOne", "brk.Teams");
-            DropForeignKey("brk.Teams", "IdGame", "brk.Games");
             DropIndex("brk.Tournament_Prize", new[] { "IdPrize" });
+            DropIndex("brk.Tournament_Prize", new[] { "IdTournament" });
             DropIndex("brk.Team_Player", new[] { "IdPlayer" });
             DropIndex("brk.Team_Player", new[] { "IdTeam" });
+            DropIndex("brk.Team_Game", new[] { "IdGame" });
+            DropIndex("brk.Team_Game", new[] { "IdTeam" });
+            DropIndex("brk.Player_Game", new[] { "IdGame" });
+            DropIndex("brk.Player_Game", new[] { "IdPlayer" });
             DropIndex("brk.Team_Tournament", new[] { "IdTournament" });
             DropIndex("brk.Team_Tournament", new[] { "IdTeam" });
             DropIndex("brk.Players", new[] { "UserName" });
@@ -180,13 +217,14 @@ namespace BracketsTeam.Entities.Migrations
             DropIndex("brk.Match_Player", new[] { "IdTeam_Tournament" });
             DropIndex("brk.Match_Player", new[] { "IdMatch" });
             DropIndex("brk.Match_Player", new[] { "IdPlayer" });
-            DropIndex("brk.Teams", new[] { "IdGame" });
             DropIndex("brk.Matches", new[] { "IdTeamWinner" });
             DropIndex("brk.Matches", new[] { "IdTeamTwo" });
             DropIndex("brk.Matches", new[] { "IdTeamOne" });
             DropTable("brk.Tournament_Prize");
             DropTable("brk.Team_Player");
+            DropTable("brk.Team_Game");
             DropTable("brk.Prizes");
+            DropTable("brk.Player_Game");
             DropTable("brk.Tournaments");
             DropTable("brk.Team_Tournament");
             DropTable("brk.Players");

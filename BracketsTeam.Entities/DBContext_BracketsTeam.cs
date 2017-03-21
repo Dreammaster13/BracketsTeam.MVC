@@ -22,8 +22,10 @@ namespace BracketsTeam.Entities
         public virtual DbSet<Match> Match { get; set; }
         public virtual DbSet<Match_Player> Match_Player { get; set; }
         public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<Player_Game> Player_Game { get; set; }
         public virtual DbSet<Prize> Prize { get; set; }
         public virtual DbSet<Team> Team { get; set; }
+        public virtual DbSet<Team_Game> Team_Game { get; set; }
         public virtual DbSet<Team_Player> Team_Player { get; set; }
         public virtual DbSet<Team_Tournament> Team_Tournament { get; set; }
         public virtual DbSet<Tournament> Tournament { get; set; }
@@ -36,7 +38,8 @@ namespace BracketsTeam.Entities
             #region Game
             modelBuilder.Entity<Game>().HasKey(x => x.IdGame).Property(x => x.IdGame).HasColumnOrder(1);
             modelBuilder.Entity<Game>().Property(x => x.Name).HasColumnOrder(2).IsRequired().HasMaxLength(128);
-            modelBuilder.Entity<Game>().Property(x => x.IsActive).HasColumnOrder(3).IsRequired();
+            modelBuilder.Entity<Game>().Property(x => x.Alias).HasColumnOrder(3).IsRequired().HasMaxLength(16);
+            modelBuilder.Entity<Game>().Property(x => x.IsActive).HasColumnOrder(4).IsRequired();
             #endregion
 
             #region Match
@@ -78,6 +81,12 @@ namespace BracketsTeam.Entities
             modelBuilder.Entity<Player>().Property(x => x.IsActive).HasColumnOrder(10);
             #endregion
 
+            #region Player_Game
+            modelBuilder.Entity<Player_Game>().HasKey(x => x.IdPlayer_Game).Property(x => x.IdPlayer_Game).HasColumnOrder(1);
+            modelBuilder.Entity<Player_Game>().Property(x => x.IdPlayer).HasColumnOrder(2);
+            modelBuilder.Entity<Player_Game>().Property(x => x.IdGame).HasColumnOrder(3);
+            #endregion
+
             #region Prize
             modelBuilder.Entity<Prize>().HasKey(x => x.IdPrize).Property(x=> x.IdPrize).HasColumnOrder(1);
             modelBuilder.Entity<Prize>().Property(x => x.Name).IsRequired().HasMaxLength(256).HasColumnOrder(2);
@@ -87,10 +96,15 @@ namespace BracketsTeam.Entities
 
             #region Team
             modelBuilder.Entity<Team>().HasKey(x => x.IdTeam).Property(x=> x.IdTeam).HasColumnOrder(1);
-            modelBuilder.Entity<Team>().Property(x => x.IdGame).HasColumnOrder(2);
-            modelBuilder.Entity<Team>().Property(x => x.Name).IsRequired().HasMaxLength(64).HasColumnOrder(3);
-            modelBuilder.Entity<Team>().Property(x => x.NameShort).IsRequired().HasMaxLength(4).HasColumnOrder(4);
-            modelBuilder.Entity<Team>().Property(x => x.IsActive).IsRequired().HasColumnOrder(5);
+            modelBuilder.Entity<Team>().Property(x => x.Name).IsRequired().HasMaxLength(64).HasColumnOrder(2);
+            modelBuilder.Entity<Team>().Property(x => x.NameShort).IsRequired().HasMaxLength(4).HasColumnOrder(3);
+            modelBuilder.Entity<Team>().Property(x => x.IsActive).IsRequired().HasColumnOrder(4);
+            #endregion
+
+            #region Team_Game
+            modelBuilder.Entity<Team_Game>().HasKey(x => x.IdTeam_Game).Property(x => x.IdTeam_Game).HasColumnOrder(1);
+            modelBuilder.Entity<Team_Game>().Property(x => x.IdTeam).HasColumnOrder(2);
+            modelBuilder.Entity<Team_Game>().Property(x => x.IdGame).HasColumnOrder(3);
             #endregion
 
             #region Team_Player

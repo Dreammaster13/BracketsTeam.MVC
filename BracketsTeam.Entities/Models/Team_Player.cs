@@ -16,7 +16,7 @@ namespace BracketsTeam.Entities.Models
         public int IdTeam_Player { get; set; }
         public int IdTeam { get; set; }
         public int IdPlayer { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
