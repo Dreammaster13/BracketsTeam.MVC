@@ -4,28 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BracketsTeam.Entities.Models
+namespace BracketsTeam.Models
 {
     /// <summary>
-    /// 
+    /// Game Class
     /// </summary>
-    public class Prize
+    public class Game
     {
-        public Prize() { }
+        public Game() { }
 
-        public int IdPrize { get; set; }
+        public int IdGame { get; set; }
 
         /// <summary>
-        /// 
+        /// Name of the game
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// 
+        /// Alias or short name for the game
         /// </summary>
-        public string ExchangeRate { get; set; }
+        public string Alias { get; set; }
         /// <summary>
-        /// 
+        /// Is the game active?
         /// </summary>
-        public decimal Value { get; set; }
+        public bool IsActive { get; set; }
     }
 }

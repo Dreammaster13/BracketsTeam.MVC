@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BracketsTeam.Entities.Models
+namespace BracketsTeam.Models
 {
-    public class Team_Tournament
+    public class Team_Game
     {
-        public Team_Tournament() { }
+        public Team_Game() { }
 
-        public int IdTeam_Tournament { get; set; }
+        public int IdTeam_Game { get; set; }
         public int IdTeam { get; set; }
-        public int IdTournament { get; set; }
+        public int IdGame { get; set; }
 
         /// <summary>
         /// 
@@ -21,6 +21,6 @@ namespace BracketsTeam.Entities.Models
         /// <summary>
         /// 
         /// </summary>
-        public virtual Tournament Tournament { get; set; }
+        public virtual Game Game { get; set; }
     }
 }

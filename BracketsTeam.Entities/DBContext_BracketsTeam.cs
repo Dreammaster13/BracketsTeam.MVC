@@ -1,12 +1,12 @@
-﻿using System;
+﻿using BracketsTeam.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BracketsTeam.Entities.Models;
-using System.Data.Entity.Infrastructure.Annotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BracketsTeam.Entities
 {
@@ -34,6 +34,13 @@ namespace BracketsTeam.Entities
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("brk");
+
+            #region Concurrency
+            modelBuilder.Entity<Concurrency>().HasKey(x => x.IdConcurrency).Property(x => x.IdConcurrency).HasColumnOrder(1);
+            modelBuilder.Entity<Concurrency>().Property(x => x.IdUser).HasColumnOrder(2);
+            modelBuilder.Entity<Concurrency>().Property(x => x.TableName).IsRequired().HasMaxLength(128).HasColumnOrder(3);
+            modelBuilder.Entity<Concurrency>().Property(x => x.JSON).HasColumnOrder(4);
+            #endregion
 
             #region Game
             modelBuilder.Entity<Game>().HasKey(x => x.IdGame).Property(x => x.IdGame).HasColumnOrder(1);
@@ -71,14 +78,10 @@ namespace BracketsTeam.Entities
             modelBuilder.Entity<Player>().Property(x => x.DV).IsRequired().HasMaxLength(1).HasColumnOrder(3);
             modelBuilder.Entity<Player>().Property(x => x.Name).IsRequired().HasMaxLength(32).HasColumnOrder(4);
             modelBuilder.Entity<Player>().Property(x => x.LastName).IsRequired().HasMaxLength(32).HasColumnOrder(5);
-            modelBuilder.Entity<Player>().Property(x => x.UserName)
-                .IsRequired().HasMaxLength(32).HasColumnAnnotation(IndexAnnotation.AnnotationName,
-                new IndexAnnotation(new IndexAttribute("IX_UserName", 1) { IsUnique = true }))
-                .HasColumnOrder(6);
-            modelBuilder.Entity<Player>().Property(x => x.NickName).IsRequired().HasMaxLength(32).HasColumnOrder(7);
-            modelBuilder.Entity<Player>().Property(x => x.AltNickName).HasMaxLength(32).HasColumnOrder(8);
-            modelBuilder.Entity<Player>().Property(x => x.BirthDate).HasColumnOrder(9);
-            modelBuilder.Entity<Player>().Property(x => x.IsActive).HasColumnOrder(10);
+            modelBuilder.Entity<Player>().Property(x => x.NickName).IsRequired().HasMaxLength(32).HasColumnOrder(6);
+            modelBuilder.Entity<Player>().Property(x => x.AltNickName).HasMaxLength(32).HasColumnOrder(7);
+            modelBuilder.Entity<Player>().Property(x => x.BirthDate).HasColumnOrder(8);
+            modelBuilder.Entity<Player>().Property(x => x.IsActive).HasColumnOrder(9);
             #endregion
 
             #region Player_Game
@@ -87,15 +90,21 @@ namespace BracketsTeam.Entities
             modelBuilder.Entity<Player_Game>().Property(x => x.IdGame).HasColumnOrder(3);
             #endregion
 
+            #region Privilege
+            modelBuilder.Entity<Privilege>().HasKey(x => x.IdPrivilege).Property(x => x.IdPrivilege).HasColumnOrder(1);
+            modelBuilder.Entity<Privilege>().Property(x => x.Name).HasColumnOrder(2);
+            modelBuilder.Entity<Privilege>().Property(x => x.Description).HasColumnOrder(3);
+            #endregion
+
             #region Prize
-            modelBuilder.Entity<Prize>().HasKey(x => x.IdPrize).Property(x=> x.IdPrize).HasColumnOrder(1);
+            modelBuilder.Entity<Prize>().HasKey(x => x.IdPrize).Property(x => x.IdPrize).HasColumnOrder(1);
             modelBuilder.Entity<Prize>().Property(x => x.Name).IsRequired().HasMaxLength(256).HasColumnOrder(2);
             modelBuilder.Entity<Prize>().Property(x => x.ExchangeRate).IsRequired().HasMaxLength(3).HasColumnOrder(3);
             modelBuilder.Entity<Prize>().Property(x => x.Value).HasPrecision(10, 3).HasColumnOrder(4);
             #endregion
 
             #region Team
-            modelBuilder.Entity<Team>().HasKey(x => x.IdTeam).Property(x=> x.IdTeam).HasColumnOrder(1);
+            modelBuilder.Entity<Team>().HasKey(x => x.IdTeam).Property(x => x.IdTeam).HasColumnOrder(1);
             modelBuilder.Entity<Team>().Property(x => x.Name).IsRequired().HasMaxLength(64).HasColumnOrder(2);
             modelBuilder.Entity<Team>().Property(x => x.NameShort).IsRequired().HasMaxLength(4).HasColumnOrder(3);
             modelBuilder.Entity<Team>().Property(x => x.IsActive).IsRequired().HasColumnOrder(4);
@@ -108,7 +117,7 @@ namespace BracketsTeam.Entities
             #endregion
 
             #region Team_Player
-            modelBuilder.Entity<Team_Player>().HasKey(x => x.IdTeam_Player).Property(x=> x.IdTeam_Player).HasColumnOrder(1);
+            modelBuilder.Entity<Team_Player>().HasKey(x => x.IdTeam_Player).Property(x => x.IdTeam_Player).HasColumnOrder(1);
             modelBuilder.Entity<Team_Player>().Property(x => x.IdTeam).HasColumnOrder(2);
             modelBuilder.Entity<Team_Player>().Property(x => x.IdPlayer).HasColumnOrder(3);
             modelBuilder.Entity<Team_Player>().Property(x => x.IsPlayerMain).IsRequired().HasColumnOrder(4);
@@ -116,13 +125,13 @@ namespace BracketsTeam.Entities
             #endregion
 
             #region Team_Tournament
-            modelBuilder.Entity<Team_Tournament>().HasKey(x => x.IdTeam_Tournament).Property(x=> x.IdTeam_Tournament).HasColumnOrder(1);
+            modelBuilder.Entity<Team_Tournament>().HasKey(x => x.IdTeam_Tournament).Property(x => x.IdTeam_Tournament).HasColumnOrder(1);
             modelBuilder.Entity<Team_Tournament>().Property(x => x.IdTeam).HasColumnOrder(2);
             modelBuilder.Entity<Team_Tournament>().Property(x => x.IdTournament).HasColumnOrder(3);
             #endregion
 
             #region Tournament
-            modelBuilder.Entity<Tournament>().HasKey(x => x.IdTournament).Property(x=> x.IdTournament).HasColumnOrder(1);
+            modelBuilder.Entity<Tournament>().HasKey(x => x.IdTournament).Property(x => x.IdTournament).HasColumnOrder(1);
             modelBuilder.Entity<Tournament>().Property(x => x.Name).IsRequired().HasMaxLength(256).HasColumnOrder(2);
             modelBuilder.Entity<Tournament>().Property(x => x.MaxPlayers).IsRequired().HasColumnOrder(3);
             modelBuilder.Entity<Tournament>().Property(x => x.MaxPlayersTeam).IsRequired().HasColumnOrder(4);
@@ -135,6 +144,22 @@ namespace BracketsTeam.Entities
             modelBuilder.Entity<Tournament_Prize>().Property(x => x.IdTournament).HasColumnOrder(2);
             modelBuilder.Entity<Tournament_Prize>().Property(x => x.IdPrize).HasColumnOrder(3);
             modelBuilder.Entity<Tournament_Prize>().Property(x => x.ApproximateValue).HasPrecision(10, 3).HasColumnOrder(4);
+            #endregion
+
+            #region User
+            modelBuilder.Entity<User>().HasKey(x => x.IdUser).Property(x => x.IdUser).HasColumnOrder(1);
+            modelBuilder.Entity<User>().Property(x => x.IdPlayer).HasColumnOrder(2);
+            modelBuilder.Entity<User>().Property(x => x.UserName)
+               .IsRequired().HasMaxLength(32).HasColumnAnnotation(IndexAnnotation.AnnotationName,
+               new IndexAnnotation(new IndexAttribute("IX_UserName", 1) { IsUnique = true }))
+               .HasColumnOrder(3);
+            modelBuilder.Entity<User>().Property(x => x.Password).HasColumnOrder(4);
+            #endregion
+
+            #region User_Privilege
+            modelBuilder.Entity<User_Privilege>().HasKey(x => x.IdUser_Privilege).Property(x => x.IdUser_Privilege).HasColumnOrder(1);
+            modelBuilder.Entity<User_Privilege>().Property(x => x.IdUser).HasColumnOrder(2);
+            modelBuilder.Entity<User_Privilege>().Property(x => x.IdPrivilege).HasColumnOrder(3);
             #endregion
         }
     }

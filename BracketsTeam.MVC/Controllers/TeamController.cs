@@ -31,5 +31,12 @@ namespace BracketsTeam.MVC.Controllers
 
             return Json(new { msg });
         }
+
+        [HttpGet]
+        public JsonResult Search(int? idTeam = null, string name = null, string nameShort = null, bool? isActive = null)
+        {
+            var result = Team.Search(idTeam, name, nameShort, isActive);
+            return Json(new { result }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BracketsTeam.Logic;
 
 namespace BracketsTeam.MVC.Controllers
 {
-    public class AdminController : Controller
+    public class GameController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Login()
+        [HttpPost]
+        public string List()
         {
-            return View();
+            var res = Game.ActiveListJSON();
+            return res;
         }
     }
 }

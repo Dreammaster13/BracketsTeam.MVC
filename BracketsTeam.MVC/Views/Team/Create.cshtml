@@ -9,18 +9,20 @@
             <h2>Equipo <small>Registrar</small></h2>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group has-feedback">
         <label for="teamName" class="col-sm-2 control-label">Nombre</label>
         <div class="col-sm-6">
             <input type="text" id="teamName" placeholder="Nombre (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name)"
                    class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" />
+            <span class="glyphicon glyphicon-remove-sign form-control-feedback" style="display: none;"></span>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group has-feedback">
         <label for="teamShortName" class="control-label col-sm-2">Nombre Corto</label>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <input type="text" id="teamShortName" placeholder="Nombre Corto (@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort)"
                    class="form-control" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" />
+            <span class="glyphicon glyphicon-remove-sign form-control-feedback" style="display: none;"></span>
         </div>
     </div>
     <div class="form-group">
@@ -32,6 +34,7 @@
                     <option value="@item.Key">@item.Value</option>
                 }
             </select>
+            <span class="glyphicon glyphicon-remove-circle form-control-feedback" style="display: none;"></span>
         </div>
     </div>
     <div class="form-group">
@@ -53,6 +56,32 @@
 </div>
 <script type="text/javascript">
     $(function () {
+        $(":text").change(function () {
+            var parentFormGroup = $(this).parent().parent(".form-group");
+            var directParent = $(this).parent();
+
+            if (this.value == "") {
+                $(parentFormGroup).addClass("has-error");
+                $(directParent).children("span").show();
+            } else {
+                $(parentFormGroup).removeClass("has-error");
+                $(directParent).children("span").hide();
+            }
+        });
+
+        $(":text").focusout(function () {
+            var parentFormGroup = $(this).parent().parent(".form-group");
+            var directParent = $(this).parent();
+
+            if (this.value == "") {
+                $(parentFormGroup).addClass("has-error");
+                $(directParent).children("span").show();
+            } else {
+                $(parentFormGroup).removeClass("has-error");
+                $(directParent).children("span").hide();
+            }
+        });
+
         $("#gameList").select2({
             placeholder: "Buscar Juego ...",
             allowClear: true,
@@ -106,6 +135,7 @@
             }).done(function (response) {
                 document.getElementById("teamName").value = "";
                 document.getElementById("teamShortName").value = "";
+                $("#gameList").val([]).trigger("change"); //clear selection(s)
                 var tIsActive = document.getElementById("teamIsActive").checked = true;
                 classUsed = "success";
             }).fail(function (response) {

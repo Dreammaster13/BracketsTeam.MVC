@@ -1,7 +1,134 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Team - Index";
 }
+@using System.Web.Mvc.Html;
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <h4>Team <small>Buscar</small></h4>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Nombre</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="searchName" placeholder="Nombre" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Nombre Corto</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="searchShortName" placeholder="Nombre Corto" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gameList" class="control-label col-sm-2">Juego</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="gameList" multiple="multiple"></select>
+                    <span class="glyphicon glyphicon-remove-circle form-control-feedback" style="display: none;"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> ¿Equipo está activo?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button class="btn btn-primary"><span class="fa fa-search"></span> Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <h4>Team <small>Detalle</small></h4>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nombre</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="searchName" placeholder="Nombre" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Nombre Corto</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="searchShortName" placeholder="Nombre Corto" maxlength="@BracketsTeam.Logic.Utilities.LengthDefinition.Team.NameShort" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="gameList" class="control-label col-sm-2">Juego</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="gameList" multiple="multiple"></select>
+                <span class="glyphicon glyphicon-remove-circle form-control-feedback" style="display: none;"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="teamIsActive" checked="checked" value="fuck off" /> ¿Equipo está activo?
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-6">
+                <button class="btn btn-primary"><span class="fa fa-search"></span> Buscar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<h2>Index</h2>
+<script type="text/javascript">
+    $(function () {
+        $("#gameList").select2({
+            placeholder: "No se encontraron resultados ...",
+            allowClear: false,
+            maximumInputLength: 0,
+            minimumInputLength: 0,
+            language: {
+                noResults: function () {
+                    return "No se encontraron resultados.";
+                }
+            }
+        });
 
+        $.ajax({
+            method: "POST",
+            url: "/Game/List",
+            dataType: "json"
+        }).done(function (response) {
+            var gList = response;//JSON.parse(response);
+            if (gList.length > 0) {
+                gList.forEach(function (entry) {
+                    var option = $(document.createElement("option"));
+                    option[0].value = entry.IdGame;
+                    option[0].text = entry.Name + " (" + entry.Alias + ")";
+
+                    $(option).appendTo("#gameList");
+                });
+
+                $("#gameList").select2({
+                    placeholder: "Buscar Juego ...",
+                    allowClear: true,
+                    maximumInputLength: 20,
+                    minimumInputLength: 2,
+                    language: {
+                        inputTooShort: function () {
+                            return "Debe ingresar 2 o más caracteres ...";
+                        },
+                        noResults: function () {
+                            return "No se encontraron resultados.";
+                        }
+                    }
+                }).trigger("change");
+            }
+        });
+    });
+</script>

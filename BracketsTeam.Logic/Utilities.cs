@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BracketsTeam.Entities;
+using System.Security.Cryptography;
 
 namespace BracketsTeam.Logic
 {
     /// <summary>
     ///
     /// </summary>
-    public static class Utilities
+    public class Utilities
     {
         /// <summary>
         ///
@@ -111,6 +112,9 @@ namespace BracketsTeam.Logic
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static class Messages
         {
             /// <summary>

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BracketsTeam.Entities;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using BracketsTeam.Entities;
+using MOD = BracketsTeam.Models;
 
 namespace BracketsTeam.Logic
 {
@@ -22,5 +23,21 @@ namespace BracketsTeam.Logic
 
             return dict;
         }
+
+        #region JSON
+
+        public static string ActiveListJSON()
+        {
+            var jsonString = string.Empty;
+            using (var ctx = new DBContext_BracketsTeam())
+            {
+                var gameList = ctx.Game.Where(x => x.IsActive).ToList();
+                jsonString = JsonConvert.SerializeObject(gameList);
+            }
+
+            return jsonString;
+        }
+
+        #endregion
     }
 }

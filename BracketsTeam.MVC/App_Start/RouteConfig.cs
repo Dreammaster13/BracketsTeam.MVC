@@ -36,6 +36,11 @@ namespace BracketsTeam.MVC
                 defaults: new { controller = "Admin", action = "Index" });
 
             routes.MapRoute(
+                name: "Game",
+                url: "Game/{action}",
+                defaults: new { controller = "Game", action = "Index", id = UrlParameter.Optional});
+
+            routes.MapRoute(
                 name: "Team",
                 url: "Admin/Team/{action}/{id}",
                 defaults: new { controller = "Team", action = "{action}", id = UrlParameter.Optional });

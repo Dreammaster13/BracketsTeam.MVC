@@ -275,6 +275,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BracketsController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Global.asax.cs">
@@ -296,6 +297,7 @@
     <Content Include="Views\Brackets\Index.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,6 +310,7 @@
     <Folder Include="Content\img\" />
     <Folder Include="Content\video\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Game\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BracketsTeam.Logic\BracketsTeam.Logic.csproj">
