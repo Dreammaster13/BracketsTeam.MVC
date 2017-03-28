@@ -75,18 +75,23 @@ namespace BracketsTeam.Logic
 
         public static void test(string pass)
         {
-            string dbpass = "dbpass";
+            /*string dbpass = "dbpass";
 
             //(new)generate pass
             var crypt = new Crypter(pass, false);
             string guardar_pass_db = crypt.GenerateNewSaltedHash();
-            
+
             //compare entered pass
             var crypt2 = new Crypter(dbpass, true);
             if (crypt2.CompareSaltedHash(pass))
             {
                 //pass is correct
-            }
+            }*/
+
+            var crypter = new CrypterSimple("prueba", false);
+            var pwdCrypted = crypter.HashMe();
+            //here save the hashed password to DB
+
         }
     }
 }

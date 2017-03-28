@@ -76,6 +76,11 @@ namespace Firefrog.Crypto
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="plainPass"></param>
+        /// <returns></returns>
         public bool CompareSaltedHash(string plainPass)
         {
             var returnValue = true;
